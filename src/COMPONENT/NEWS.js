@@ -43,6 +43,7 @@ export default class NEWS extends Component {
             content: "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
         }
     ]
+    
     constructor(){
         super();
         console.log("Hello i am a constructor from news component");
@@ -60,7 +61,7 @@ export default class NEWS extends Component {
                     <div className="row">
                         {this.state.article.map((element) => {
                             return <div className="col-sm-4">
-                                <NEWSITEM 
+                                <NEWSITEM
                                     title={element.title.length >= 47? element.title.slice(0, 47)+"..." : element.title} 
                                     description={element.description.length >= 80 ? element.description.slice(0, 80)+"..." : element.description}
                                     imageUrl={element.urlToImage}
