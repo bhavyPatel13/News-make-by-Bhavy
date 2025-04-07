@@ -5,47 +5,6 @@ import SPINER from './SPINER.js';
 // import IMAGE from './IMAGE.js';
 
 export default class NEWS extends Component {
-    articles = [
-        {
-            source: {
-                id: "bbc-sport",
-                name: "BBC Sport"
-            },
-            author: null,
-            title: "Champions Trophy Final LIVE: India vs New Zealand – cricket score, radio, highlights & updates",
-            description: "India face New Zealand in the Champions Final in Dubai - follow live cricket scores, text updates, in-play video clips and radio commentary",
-            url: "http://www.bbc.co.uk/sport/cricket/live/c1lv2p7nnmzt",
-            urlToImage: "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/6f47/live/1c0a1cd0-fac9-11ef-9e61-71ee71f26eb1.jpg",
-            publishedAt: "2025-03-09T08:37:16.8044905Z",
-            content: "That's right, it's Champions Trophy final day as India take on New Zealand at Dubai International Stadium.\r\nAfter going 11 years with winning an ICC event, Rohit Sharma's side can make it two in two … [+245 chars]"
-        },
-        {
-            source: {
-                id: "espn-cric-info",
-                name: "ESPN Cric Info"
-            },
-            author: null,
-            title: "PCB hands Umar Akmal three-year ban from all cricket | ESPNcricinfo.com",
-            description: "Penalty after the batsman pleaded guilty to not reporting corrupt approaches | ESPNcricinfo.com",
-            url: "http://www.espncricinfo.com/story/_/id/29103103/pcb-hands-umar-akmal-three-year-ban-all-cricket",
-            urlToImage: "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg",
-            publishedAt: "2020-04-27T11:41:47Z",
-            content: "Umar Akmal's troubled cricket career has hit its biggest roadblock yet, with the PCB handing him a ban from all representative cricket for three years after he pleaded guilty of failing to report det… [+1506 chars]"
-        },
-        {
-            source: {
-                id: "espn-cric-info",
-                name: "ESPN Cric Info"
-            },
-            author: null,
-            title: "What we learned from watching the 1992 World Cup final in full again | ESPNcricinfo.com",
-            description: "Wides, lbw calls, swing - plenty of things were different in white-ball cricket back then | ESPNcricinfo.com",
-            url: "http://www.espncricinfo.com/story/_/id/28970907/learned-watching-1992-world-cup-final-full-again",
-            urlToImage: "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1219926_1296x729.jpg",
-            publishedAt: "2020-03-30T15:26:05Z",
-            content: "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
-        }
-    ]
     
     constructor(){
         super();
@@ -59,44 +18,84 @@ export default class NEWS extends Component {
 
     handlerPreviousClick = async () => {
         console.log("click previous");
-        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=68476c07dc894b00a95fcc4af3fc5a8e&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-        this.setState({loding : true});
-        let data = await fetch(url);
-        let parceData = await data.json ();
-        this.setState({
+        if (this.props.category) {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.props.category}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
             page : this.state.page - 1,
             article : parceData.articles,
             totalResults : parceData.totalResults,
             loding : false,
         });
+        } else {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
+            page : this.state.page - 1,
+            article : parceData.articles,
+            totalResults : parceData.totalResults,
+            loding : false,
+        });
+        }
         // console.log("previous parcedata --------------------------------->",JSON.stringify(parceData));   
     }
 
     handlerNextClick = async () => {
         console.log("click Next");
-        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=68476c07dc894b00a95fcc4af3fc5a8e&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-        this.setState({loding : true});
-        let data = await fetch(url);
-        let parceData = await data.json ();
-        this.setState({
-            page : this.state.page + 1,
+        if (this.props.category) {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.props.category}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
+            page : this.state.page - 1,
             article : parceData.articles,
-            // totalResults : parceData.totalResults,
+            totalResults : parceData.totalResults,
             loding : false,
         });
+        } else {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
+            page : this.state.page - 1,
+            article : parceData.articles,
+            totalResults : parceData.totalResults,
+            loding : false,
+        });
+        }
         // console.log("previous parcedata --------------------------------->",JSON.stringify(parceData));
     }
 
     async componentDidMount(){
-        let url = `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=68476c07dc894b00a95fcc4af3fc5a8e&page=1&pageSize=${this.props.pageSize}`;
-        let data = await fetch(url);
-        let parceData = await data.json ();
-        let totalResults = parceData.totalResults;
-        console.log("totalResults --------------------->", totalResults);
-        this.setState({
+        if (this.props.category) {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
+            page : this.state.page - 1,
             article : parceData.articles,
+            totalResults : parceData.totalResults,
             loding : false,
         });
+        } else {
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=d2e4a19327c64e4992b56bff699af093&page=${this.props.page - 1}&pageSize=${this.props.pageSize}`;
+            this.setState({loding : true});
+            let data = await fetch(url);
+            let parceData = await data.json ();
+            this.setState({
+            page : this.state.page - 1,
+            article : parceData.articles,
+            totalResults : parceData.totalResults,
+            loding : false,
+        });
+        }
     }
 
     render() {
