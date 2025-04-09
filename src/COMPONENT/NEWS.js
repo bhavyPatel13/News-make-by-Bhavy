@@ -62,7 +62,7 @@ export default class NEWS extends Component {
     async componentDidMount(){
         this.updateNews();
     }
-    
+
     render() {
         return (
             <div className='container my-3'>
